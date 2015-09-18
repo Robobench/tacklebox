@@ -2,7 +2,6 @@ from __future__ import print_function
 import subprocess
 import logging
 
-
 class BaseComponent(object):
     def __init__(self):
         self.devices = []

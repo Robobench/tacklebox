@@ -1,6 +1,6 @@
 from __future__ import print_function
 import subprocess
-import docker_subprocess
+import tools.docker_subprocess
 
 import logging
 import base_component

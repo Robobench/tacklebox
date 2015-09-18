@@ -2,7 +2,7 @@ import sys
 
 from components import rendering_component
 from components import host_x_component
-from components import docker_subprocess
+from tools import docker_subprocess
 reload(rendering_component)
 reload(host_x_component)
 reload(docker_subprocess)
