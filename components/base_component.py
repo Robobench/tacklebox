@@ -43,7 +43,7 @@ class BaseComponent(object):
         :type opened_objects - [str,]
         """
         devices = [dev for dev in opened_objects if dev.startswith('/dev') and not
-                     any([reject in lib for reject in self.device_rejection_filter])]
+                     any([reject in dev for reject in self.device_rejection_filter])]
         return devices
 
     def extract_environment(self, opened_objects):
