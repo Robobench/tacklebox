@@ -5,7 +5,7 @@ The primary mechanism for doing this is using strace on an examplar utility on t
 Try it by doing the following:
 
 ```
-python tackle.py robobench/ubuntu-trusty-mesautils
+python tackle.py --image=robobench/ubuntu-trusty-mesautils
 $glxinfo | grep "direct rendering" 
 direct rendering: Yes
 ```
