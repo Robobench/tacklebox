@@ -5,10 +5,8 @@ The primary mechanism for doing this is using strace on an examplar utility on t
 Try it by doing the following:
 
 ```
-python tackle.py --image=robobench/ubuntu-trusty-mesautils
-$glxinfo | grep "direct rendering" 
-direct rendering: Yes
+python tackle.py component-demo
 ```
 
-This test case demonstrates that the container is correctly configured to access the hosts' gl capabilities.
+This test case demonstrates that the container is correctly configured to access the hosts' gl capabilities using the vanilla ubuntu:trusty image, without installing X or the GL driver explicitly in the container!
 

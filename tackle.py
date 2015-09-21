@@ -48,6 +48,8 @@ class TackleBox(subcommand.CLICommands):
     def run(self, image="ubuntu:trusty", rm=True, 
             interactive=False, options="", command="/bin/bash"):
         """
+        docker run with automatic hardware library and device flags automatically derived and passed to docker run.
+
         :param image: The name of the docker image to run
         :type image: str
         :param rm: Specify whether to remove the container after running the image. This option is redundant with the standard docker operation, but is promoted here for the purpose of highlighting the change in default behavior with respect to the standard docker command. 
@@ -80,6 +82,22 @@ class TackleBox(subcommand.CLICommands):
                 logging.error("Component: {} Failed ".format(component.name))
                 passed = False
         return passed
+
+    def component_demo(self, image="ubuntu:trusty"):
+        """
+        Run the component demo to allow a human user to verify the function of a component
+
+        :param image: The name of the docker image to run
+        :type image: str
+        """
+        docker_runner = docker_subprocess.DockerRunPopen(image, interactive=True, dockerargs=self.__get_component_arguments(),rm=True)
+        passed = True
+        for component in self.components:
+            component.demo_component(docker_runner)
+
+
+
+
 
 if __name__=="__main__":
     t = TackleBox(sys.argv[1:])

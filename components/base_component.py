@@ -83,6 +83,11 @@ class BaseComponent(object):
         return False
 
 
+    def demo_component(self, process_maker=subprocess.Popen):
+        """Provide a basic demo of a component
+        """
+        pass
+
     def _has_command(self, process_maker, command):
         p = process_maker('which {}'.format(command), shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
         return not p.wait()
