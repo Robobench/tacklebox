@@ -11,7 +11,7 @@ class RenderingComponent(base_component.BaseComponent):
         super(RenderingComponent, self).__init__()
         self.name = "GL Rendering Component"
         self.description = " Enable the client container to access OpenGL"
-        self.required_commands = ["glxinfo", "strace", "cut"]
+        self.required_commands = ["glxinfo", "strace", "cut", "glxgears"]
         self.library_rejection_filter=["libm","libdl", "ld","libc"]
         self.device_rejection_filter=["shm"]
         self.container_lib_path = "/external_libs"
@@ -40,6 +40,8 @@ class RenderingComponent(base_component.BaseComponent):
         for device in self.devices:
             device_dict[device] = device
 
+        volume_dict.update(self.extract_required_commands())
+
         return {'volumes': volume_dict, 'devices': device_dict, 'environment': env_dict}
 
 
@@ -65,10 +67,20 @@ class RenderingComponent(base_component.BaseComponent):
 
 
     def __test_direct_rendering(self, process_maker=subprocess.Popen):
-        p = process_maker("glxinfo", shell=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+        p = process_maker("glxinfo", shell=False, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
         (stdout, stderr) = p.communicate()
         direct_rendering = "direct rendering: Yes" in stdout
         if not direct_rendering:
             logging.error("Direct rendering not enabled on host! Cannot enable on client. Examine host configuration.")
             return False
         return True
+
+    def demo_component(self, process_maker=subprocess.Popen):
+        self.__demo_glxgears(process_maker)
+
+    def __demo_glxgears(self, process_maker):
+        p = process_maker("glxgears", shell=False, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+        (stdout, stderr) = p.communicate()
+        print(stdout)
+        print(stderr)
+        return

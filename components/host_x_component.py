@@ -45,6 +45,7 @@ class HostXComponent(base_component.BaseComponent):
         """
         environment_dict = self.extract_environment()
         volume_dict = self.extract_volumes()
+        volume_dict.update(self.extract_required_commands())
         return {'environment':environment_dict, 'volumes':volume_dict}
 
     def extract_environment(self):
@@ -75,3 +76,15 @@ class HostXComponent(base_component.BaseComponent):
         volume_dict[self.__get_xauth_fname()]  = self.__get_xauth_fname() # Add volume mapping to xauth file
         volume_dict[self.__get_xsock_fname()]  = self.__get_xsock_fname() # Add volume mapping for X11 socket
         return volume_dict
+
+
+    def test_component(self, process_maker=subprocess.Popen):
+        return self.__test_xdpyinfo(process_maker)
+
+    def __test_xdpyinfo(self, process_maker=subprocess.Popen):
+        p = process_maker("xdpyinfo", shell=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+        (stdout, stderr) = p.communicate()
+        if "unable" in stderr:
+            logging.error("Unable to access host X server")
+            return False
+        return True

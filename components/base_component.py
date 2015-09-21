@@ -1,6 +1,8 @@
 from __future__ import print_function
 import subprocess
 import logging
+from tools.which import which
+import os
 
 class BaseComponent(object):
     def __init__(self):
@@ -50,6 +52,15 @@ class BaseComponent(object):
         """ Given a list of opened objects, extract a list of relevant environment variables.
         """
         pass
+
+    def extract_required_commands(self):
+        commands = [which(command)[0] for command in self.required_commands]
+        command_dict = {}
+        for command in commands:
+            command_bin = os.path.split(command)[1]
+            container_bin = os.path.join("/usr/bin",command_bin)
+            command_dict[command]=container_bin
+        return command_dict
 
 
     def test_required_commands(self, process_maker=subprocess.Popen):

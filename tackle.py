@@ -64,6 +64,22 @@ class TackleBox(subcommand.CLICommands):
         process = docker_runner(command)
         (stdout,stderr) = process.communicate()
 
+    def component_test(self, image="ubuntu:trusty"):
+        """
+        Run the component tests to make sure that the image is correctly configured for the hardware components to work correctly.
+
+        :param image: The name of the docker image to run
+        :type image: str
+        """
+        docker_runner = docker_subprocess.DockerRunPopen(image, interactive=False, dockerargs=self.__get_component_arguments(),rm=True)
+        passed = True
+        for component in self.components:
+            if component.test_component(docker_runner):
+                logging.warn("Component: {} Passed ".format(component.name))
+            else:
+                logging.error("Component: {} Failed ".format(component.name))
+                passed = False
+        return passed
 
 if __name__=="__main__":
     t = TackleBox(sys.argv[1:])
