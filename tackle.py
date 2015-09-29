@@ -33,6 +33,7 @@ class TackleBox(subcommand.CLICommands):
         argument_strings = []
         for component in self.components:
             argument_strings.extend(self.__get_arguments_from_dict(component.update_arguments()))
+        
         return argument_strings
 
     def __get_arguments_from_dict(self, argument_dict):
@@ -91,6 +92,15 @@ class TackleBox(subcommand.CLICommands):
         :type image: str
         """
         docker_runner = docker_subprocess.DockerRunPopen(image, interactive=True, dockerargs=self.__get_component_arguments(),rm=True)
+        dockerargs=self.__get_component_arguments()
+
+
+        print(dockerargs)
+    
+        # for component in self.components:
+        #     print(component)
+        #     # component.demo_component(docker_runner)
+
         passed = True
         for component in self.components:
             component.demo_component(docker_runner)

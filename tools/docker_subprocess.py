@@ -28,16 +28,20 @@ class DockerRunPopen(object):
         :param kwargs: The keyword args to pass to the Popen function
         :type {string,string}
         """
-        command_list = ["docker run"]
+        args =  ["docker", "run"] + self.generate_docker_args(command_args)
+        return subprocess.Popen(args=args, **kwargs)
+
+    def generate_docker_args(self, command_args):
+        # command_list = ["docker run"]
+        command_list = []
         if self.interactive:
             command_list.extend(["-ti"])
-
         command_list.append('--rm={}'.format(self.rm).lower())
         command_list.extend(self.dockerargs)
         command_list.append(self.image_name)
         command_list.append('"{}"'.format(command_args))
         logging.warn(' '.join(command_list))
-        args=shlex.split(' '.join(command_list))
-        return subprocess.Popen(args=args, **kwargs)
-
+        docker_args=shlex.split(' '.join(command_list))
+        return docker_args
         #return subprocess.Popen(args=' '.join(command_list))
+    
