@@ -4,11 +4,11 @@ The primary mechanism for doing this is using strace on an examplar utility on t
 
 First, install Dependencies:
   
-  sudo pip install -r requirements.txt
+	sudo pip install -r requirements.txt
 
 Try it by doing the following:
 
-  python tackle.py component-demo
+	python tackle.py component-demo
 
 This test case demonstrates that the container is correctly configured to access the hosts' gl capabilities using the vanilla ubuntu:trusty image, without installing X or the GL driver explicitly in the container!
 
