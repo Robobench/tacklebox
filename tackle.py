@@ -31,8 +31,11 @@ class TackleBox(subcommand.CLICommands):
     
     def __get_component_arguments(self):
         argument_strings = []
-        for component in self.components:
-            argument_strings.extend(self.__get_arguments_from_dict(component.update_arguments()))
+
+        argument_strings.extend(self.__get_arguments_from_dict(self.__generate_final_argument_dict()))
+
+        # for component in self.components:
+        #     argument_strings.extend(self.__get_arguments_from_dict(component.update_arguments()))
         
         return argument_strings
 
@@ -45,6 +48,30 @@ class TackleBox(subcommand.CLICommands):
         for key,value in argument_dict.get('environment',{}).iteritems():
             argument_strings.append('--env={}={}'.format(key, value))
         return argument_strings
+
+    def __generate_final_argument_dict(self):
+        argument_dict = dict()
+        for component in self.components:
+            argument_dict = self.__merge_two_dicts(argument_dict, component.update_arguments())
+        # import pdb; pdb.set_trace()
+        return argument_dict
+
+    def __merge_two_dicts(self, dict1, dict2):
+        '''Given two dicts, merge them into a new dict as a shallow copy.'''
+        merged_dict = dict1.copy()
+        # For keys that both dict1 and dict2 contain, update the value for the key
+        # in merged_dict
+        for k in dict1:
+            if k in dict2:
+                merged_dict[k].update(dict2[k])
+
+        # For keys that dict2 contains but NOT dict1, set key in merged_dict to
+        # value of key in dict2
+        for k in dict2:
+            if k not in merged_dict:
+                merged_dict[k] = dict2[k]
+
+        return merged_dict
 
     def run(self, image="ubuntu:trusty", rm=True, 
             interactive=False, options="", command="/bin/bash"):
@@ -95,7 +122,7 @@ class TackleBox(subcommand.CLICommands):
         dockerargs=self.__get_component_arguments()
 
 
-        print(dockerargs)
+        # print(dockerargs)
     
         # for component in self.components:
         #     print(component)

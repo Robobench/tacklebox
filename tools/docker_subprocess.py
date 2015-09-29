@@ -32,6 +32,14 @@ class DockerRunPopen(object):
         return subprocess.Popen(args=args, **kwargs)
 
     def generate_docker_args(self, command_args):
+
+
+        """Return docker specific arguments to be passed into "docker run"
+
+        :param command_args: The args to pass to /bin/bash
+        :type (str,)
+        :type {string}
+        """
         # command_list = ["docker run"]
         command_list = []
         if self.interactive:

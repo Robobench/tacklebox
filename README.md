@@ -12,3 +12,8 @@ Try it by doing the following:
 
 This test case demonstrates that the container is correctly configured to access the hosts' gl capabilities using the vanilla ubuntu:trusty image, without installing X or the GL driver explicitly in the container!
 
+###TODOs
+
+  Refactor ``argument_dict`` in ``def __get_arguments_from_dict(self, argument_dict):`` as python module for reuseability
+
+
