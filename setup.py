@@ -28,7 +28,7 @@ setup(
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.2',
     ],
-    keywords='docker, gpu support'
+    keywords='docker, gpu support',
     packages=find_packages(exclude=['tests'])
 
     )
