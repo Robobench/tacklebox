@@ -17,7 +17,7 @@ setup(
     description="Toolkit for bringing your hardware with you into Docker containers",
     long_description = long_description,
     author="Jonathan Weisz",
-    author_email='jweisz@cs.columbia.edu'
+    author_email='jweisz@cs.columbia.edu',
     license="MIT",
     classifiers=[
         'Development Status :: 3 - Alpha',
