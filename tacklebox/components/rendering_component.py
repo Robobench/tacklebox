@@ -1,6 +1,5 @@
 from __future__ import print_function
 import subprocess
-import tools.docker_subprocess
 
 import logging
 import base_component
@@ -28,8 +27,6 @@ class RenderingComponent(base_component.BaseComponent):
     def get_docker_argument_dict(self):
         """Get a dictionary of docker arguments from discovered configuration
         """
-        if not self.libraries or not self.devices:
-            self.update_arguments()
         volume_dict = {}
         device_dict = {}
         env_dict = {'LD_LIBRARY_PATH':'/external_libs'}
