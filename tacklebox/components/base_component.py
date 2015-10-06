@@ -1,7 +1,8 @@
 from __future__ import print_function
 import subprocess
 import logging
-from tools.which import which
+from ..tools import which
+
 import os
 
 class BaseComponent(object):

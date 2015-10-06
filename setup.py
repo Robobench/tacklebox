@@ -5,10 +5,12 @@ from codecs import open
 from os import path
 
 here = path.abspath(path.dirname(__file__))
-
+long_descrioption=[]
 # Get the long description from the relevant file
 with open(path.join(here, 'DESCRIPTION.rst'), encoding='utf-8') as f:
     long_description = f.read()
+
+packages=['tacklebox','tacklebox.tools','tacklebox.components']
 
 
 setup(
@@ -29,8 +31,9 @@ setup(
         'Programming Language :: Python :: 3.2',
     ],
     keywords='docker, gpu support',
-    packages=find_packages(exclude=['tests'])
-
+    packages=packages,
+    py_modules=['helper'],
+    zip_safe=False
     )
 
 
