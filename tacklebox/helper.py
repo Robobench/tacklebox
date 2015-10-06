@@ -81,7 +81,7 @@ class Helper():
             else:
                 logging.error("Component: {} Failed ".format(component.name))
                 passed = False
-        return pass
+        return passed
 
     def component_demo(self, image="ubuntu:trusty"):
         """
