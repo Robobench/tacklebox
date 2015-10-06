@@ -78,7 +78,7 @@ class RenderingComponent(base_component.BaseComponent):
         self.__demo_glxgears(process_maker)
 
     def __demo_glxgears(self, process_maker):
-        logging.warn("Starting GLX gears to test rendering component. Close windows to continue. \n [Note that errors of the form 'XIO:  fatal IO error 11 (Resource temporarily unavailable)' are expected]")
+        logging.warn("Starting GLX gears to test rendering component. Close windows to continue.\n ***CTRL-C WILL NOT EXIT!*** \n [Note that errors of the form 'XIO:  fatal IO error 11 (Resource temporarily unavailable)' are expected]")
         p = process_maker("glxgears", shell=False, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
         (stdout, stderr) = p.communicate()
         print(stdout)
