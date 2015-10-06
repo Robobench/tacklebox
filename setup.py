@@ -7,8 +7,8 @@ from os import path
 here = path.abspath(path.dirname(__file__))
 
 # Get the long description from the relevant file
-with open(path.join(here, 'DESCRIPTION.rst'), encoding='utf-8') as f:
-    long_description = f.read()
+# with open(path.join(here, 'DESCRIPTION.rst'), encoding='utf-8') as f:
+long_description = "We hope that this toolkit will provide the best experience in reproducing Robotics Simulations without knowing much about docker and containers."
 
 
 setup(
@@ -17,7 +17,7 @@ setup(
     description="Toolkit for bringing your hardware with you into Docker containers",
     long_description = long_description,
     author="Jonathan Weisz",
-    author_email='jweisz@cs.columbia.edu'
+    author_email='jweisz@cs.columbia.edu',
     license="MIT",
     classifiers=[
         'Development Status :: 3 - Alpha',
@@ -28,9 +28,9 @@ setup(
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.2',
     ],
-    keywords='docker, gpu support'
+    install_requires=open('requirements.txt').read().splitlines(),
+    keywords='docker, gpu support',
     packages=find_packages(exclude=['tests'])
 
-    )
 
 )
