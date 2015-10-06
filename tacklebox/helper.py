@@ -66,6 +66,37 @@ class Helper():
 
         return merged_dict
 
+    def component_test(self, image="ubuntu:trusty"):
+        """
+        Run the component tests to make sure that the image is correctly configured for the hardware components to work correctly.
+
+        :param image: The name of the docker image to run
+        :type image: str
+        """
+        docker_runner = docker_subprocess.DockerRunPopen(image, interactive=False, dockerargs=self.get_component_arguments(),rm=True)
+        passed = True
+        for component in self.components:
+            if component.test_component(docker_runner):
+                logging.warn("Component: {} Passed ".format(component.name))
+            else:
+                logging.error("Component: {} Failed ".format(component.name))
+                passed = False
+
+
+    def component_demo(self, image="ubuntu:trusty"):
+        """
+        Run the component demo to allow a human user to verify the function of a component
+
+        :param image: The name of the docker image to run
+        :type image: str
+        """
+        docker_runner = docker_subprocess.DockerRunPopen(image, interactive=True, dockerargs=self.get_component_arguments(),rm=True)
+        dockerargs=self.get_component_arguments()
+        for component in self.components:
+            component.demo_component(docker_runner)
+
+
+
 
 # def main():
 
