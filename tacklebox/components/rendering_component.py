@@ -33,6 +33,8 @@ class RenderingComponent(base_component.BaseComponent):
         for library in self.libraries:
             libname = os.path.split(library)[1]
             container_lib = os.path.join("/external_libs",libname)
+            if container_lib in volume_dict.values():
+                pass
             volume_dict[library]=container_lib
         for device in self.devices:
             device_dict[device] = device
