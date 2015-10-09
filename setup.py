@@ -32,7 +32,8 @@ setup(
     ],
     keywords='docker, gpu support',
     packages=packages,
-    py_modules=['helper'],
+    scripts=['tacklebox/tackle'],
+    py_modules=['tacklebox/helper'],
     zip_safe=False
     )
 

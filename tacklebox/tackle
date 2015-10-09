@@ -4,16 +4,13 @@ import argparse
 import inspect
 import collections
 import logging
+import tacklebox
 
+from tacklebox.components import rendering_component
+from tacklebox.components import host_x_component
+from tacklebox.tools import docker_subprocess
+from tacklebox.tools import subcommand
 
-from components import rendering_component
-from components import host_x_component
-from tools import docker_subprocess
-from tools import subcommand
-
-reload(rendering_component)
-reload(host_x_component)
-reload(docker_subprocess)
 
 
 class TackleBox(subcommand.CLICommands):
