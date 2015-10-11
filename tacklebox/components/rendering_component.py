@@ -47,7 +47,7 @@ class RenderingComponent(base_component.BaseComponent):
     def introspect_host(self):
         """Introspect the host to find the parameters necessary for the components
         """
-        p = subprocess.Popen("strace glxinfo 2>&1| grep open | cut -d '\"'  -f 2 | sort | uniq -c | awk '{print $2}\n'", shell=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+        p = subprocess.Popen("strace glxinfo 2>&1| grep open | grep -v ENOENT | cut -d '\"'  -f 2 | sort | uniq -c | awk '{print $2}\n'", shell=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
         (stdout, stderr) = p.communicate()
 
         opened_objects = stdout.split()
