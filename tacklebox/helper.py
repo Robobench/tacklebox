@@ -42,11 +42,20 @@ class Helper():
             argument_strings.append('--env={}={}'.format(key, value))
         return argument_strings
 
+    def uniquify_dict_values(self, d):
+	value_set=set(d.values())
+        for key,value in d.iteritems():
+           if value in value_set:
+		d.pop(key)
+		
+
     def generate_final_argument_dict(self):
         argument_dict = dict()
         for component in self.components:
             argument_dict = self.merge_two_dicts(argument_dict, component.update_arguments())
         # import pdb; pdb.set_trace()
+	if 'volumes' in argument_dict:
+            argument_dict['volumes']=self.uniquify_dict_values(argument_dict['volumes'])
         return argument_dict
 
     def merge_two_dicts(self, dict1, dict2):
