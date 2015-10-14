@@ -43,11 +43,13 @@ class Helper():
         return argument_strings
 
     def uniquify_dict_values(self, d):
-	value_set=set(d.values())
-        for key,value in d.iteritems():
+        value_set=set()
+        for key,value in d.items():
            if value in value_set:
-		d.pop(key)
-		
+                print d.pop(key)
+           else:
+               value_set.add(value)
+        return d
 
     def generate_final_argument_dict(self):
         argument_dict = dict()
