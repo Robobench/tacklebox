@@ -12,7 +12,7 @@ class HostXComponent(base_component.BaseComponent):
         self.setup_x11_access(self.__get_xauth_fname())
 
     def __get_display_args(self):
-        return "unix:0.0"
+        return os.environ.get("DISPLAY","unix:0.0")
 
 
     def __get_xauth_fname(self):
@@ -28,10 +28,8 @@ class HostXComponent(base_component.BaseComponent):
         with open(xauthFilename, 'a'):
             os.utime(xauthFilename, None)
 
-        if not 'DISPLAY' in os.environ:
-            display = self.__get_display_args()
-        else:
-            display=os.environ['DISPLAY']
+        
+        display = self.__get_display_args()        
 
         args="xauth nlist %s | sed -e 's/^..../ffff/' | xauth -f %s nmerge -"%(display, xauthFilename)
         p = subprocess.Popen(args , shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
