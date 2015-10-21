@@ -29,7 +29,7 @@ class RenderingComponent(base_component.BaseComponent):
         """
         volume_dict = {}
         device_dict = {}
-        env_dict = {'LD_LIBRARY_PATH':'/external_libs'}
+        env_dict = {'LD_LIBRARY_PATH':'/external_libs', 'LIBGL_DRIVERS_PATH':'/external_libs'}
         for library in self.libraries:
             libname = os.path.split(library)[1]
             container_lib = os.path.join("/external_libs",libname)
