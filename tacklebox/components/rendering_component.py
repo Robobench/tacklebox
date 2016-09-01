@@ -11,7 +11,8 @@ class RenderingComponent(base_component.BaseComponent):
         self.name = "GL Rendering Component"
         self.description = " Enable the client container to access OpenGL"
         self.required_commands = ["glxinfo", "strace", "cut", "glxgears"]
-        self.library_rejection_filter=["libm","libdl", "ld","libc","libstdc++"]
+        self.library_rejection_filter=["libm","libdl", "ld","libc","libstdc++","libpthread",
+					"pciaccess","udev","gcc","dbus","libz","librt"]
         self.device_rejection_filter=["shm"]
         self.container_lib_path = "/external_libs"
 
